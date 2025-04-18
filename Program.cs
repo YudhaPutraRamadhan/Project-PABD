@@ -69,7 +69,7 @@ class Program
 
         using (SqlConnection conn = new SqlConnection(connectionString))
         {
-            string query = "INSERT INTO Komunitas (IdEvents, NamaKomunitas, AdminKomunitas, Deskripsi, NomorTeleponKomunitas, Kategori, AlamatKomunitas, EmailKomunitas, JumlahAnggota) " +
+            string query = "INSERT INTO Komunitas (IdKomunitas, NamaKomunitas, AdminKomunitas, Deskripsi, NomorTeleponKomunitas, Kategori, AlamatKomunitas, EmailKomunitas, JumlahAnggota) " +
                 "VALUES (@id, @Nama, @AdminKomun, @Deskripsi, @Telepon, @Kategori, @Alamat, @Email, @JumlahAnggota)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@id", idkomun);
