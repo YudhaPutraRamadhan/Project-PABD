@@ -147,7 +147,7 @@ class Program
 
         using (SqlConnection conn = new SqlConnection(connectionString))
         {
-            string query = "DELETE FROM Komunitas WHERE IdEvents = @id";
+            string query = "DELETE FROM Komunitas WHERE IdKomunitas = @id";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@id", idkomun);
 
