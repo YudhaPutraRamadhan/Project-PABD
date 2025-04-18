@@ -122,8 +122,8 @@ class Program
                     while (reader.Read())
                     {
                         Console.WriteLine("{0,-5} | {1,-50} | {2,-50} | {3,-100} | {4,-13}, | {5,-25} | {6,-50}, {7,-50}, {8,-10}",
-                            reader["Id"], reader["Nama Komunitas"], reader["Nama Admin"], reader["Deskripsi Komunitas"], reader["No Telepon"], reader["Kategori"],
-                            reader["Alamat"], reader["Email"], reader["Jumlah Anggota"]);
+                            reader[0], reader[1], reader[2], reader[3], reader[4], reader[5],
+                            reader[6], reader[7], reader[8]);
                     }
                 }
                 else
