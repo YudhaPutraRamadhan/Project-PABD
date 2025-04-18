@@ -140,4 +140,31 @@ class Program
         }
     }
 
+    static void DeleteData()
+    {
+        Console.Write("\nMasukkan ID Komunitas yang ingin dihapus: ");
+        string idkomun = Console.ReadLine();
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            string query = "DELETE FROM Komunitas WHERE IdEvents = @id";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", idkomun);
+
+            try
+            {
+                conn.Open();
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                    Console.WriteLine("Data berhasil dihapus!");
+                else
+                    Console.WriteLine("Data tidak ditemukan.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+    }
 }
