@@ -17,8 +17,9 @@ class Program
             Console.WriteLine("1. Tambah Data Komunitas");
             Console.WriteLine("2. Tampilkan Data Komunitas");
             Console.WriteLine("3. Hapus Data Komunitas");
-            Console.WriteLine("4. Keluar");
-            Console.Write("Pilih menu (1-4): ");
+            Console.WriteLine("4. Perbarui Data Komunitas");
+            Console.WriteLine("5. Keluar");
+            Console.Write("Pilih menu (1-5): ");
             string pilihan = Console.ReadLine();
 
             switch (pilihan)
@@ -33,6 +34,9 @@ class Program
                     DeleteData();
                     break;
                 case "4":
+                    UpdateData();
+                    break;
+                case "5":
                     Console.WriteLine("Terima kasih telah menggunakan aplikasi ini.");
                     return;
                 default:
@@ -160,6 +164,88 @@ class Program
                     Console.WriteLine("Data berhasil dihapus!");
                 else
                     Console.WriteLine("Data tidak ditemukan.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+    }
+
+    static void UpdateData()
+    {
+        Console.Write("Masukkan ID Komunitas yang ingin diperbarui: ");
+        string idkomun = Console.ReadLine();
+
+        bool dataFound = false;
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            string checkQuery = "SELECT * FROM Komunitas WHERE IdKomunitas = @id";
+            SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+            checkCmd.Parameters.AddWithValue("@id", idkomun);
+
+            try
+            {
+                conn.Open();
+                int count = (int)checkCmd.ExecuteScalar();
+                dataFound = (count > 0);
+
+                if (!dataFound)
+                {
+                    Console.WriteLine("Data dengan ID tersebut tidak ditemukan.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saat memeriksa data: " + ex.Message);
+                return;
+            }
+        }
+
+        Console.Write("Masukkan Nama Komunitas baru: ");
+        string nama = Console.ReadLine();
+        Console.Write("Masukkan Nama Admin Komunitas baru: ");
+        string adminkomun = Console.ReadLine();
+        Console.Write("Masukkan deskripsi Komunitas baru: ");
+        string deskripsi = Console.ReadLine();
+        Console.Write("Masukkan No Telepon baru (08xxxxx): ");
+        string telepon = Console.ReadLine();
+        Console.Write("Masukkan Kategori baru: ");
+        string kategori = Console.ReadLine();
+        Console.Write("Masukkan Alamat Komunitas baru: ");
+        string alamat = Console.ReadLine();
+        Console.Write("Masukkan Email Komunitas baru: ");
+        string email = Console.ReadLine();
+        Console.Write("Masukkan Jumlah Anggota Komunitas baru: ");
+        string jumlah = Console.ReadLine();
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            string query = "UPDATE Komunitas SET " + "NamaKomunitas = @Nama, " + "AdminKomunitas = @AdminKomun, " + "Deskripsi = @Deskripsi, " +
+            "NomorTeleponKomunitas = @Telepon, " + "Kategori = @Kategori, " + "AlamatKomunitas = @Alamat, " + "EmailKomunitas = @Email, " +
+            "JumlahAnggota = @JumlahAnggota " + "WHERE IdKomunitas = @id";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", idkomun);
+            cmd.Parameters.AddWithValue("@Nama", nama);
+            cmd.Parameters.AddWithValue("@AdminKomun", adminkomun);
+            cmd.Parameters.AddWithValue("@Deskripsi", deskripsi);
+            cmd.Parameters.AddWithValue("@Telepon", telepon);
+            cmd.Parameters.AddWithValue("@Kategori", kategori);
+            cmd.Parameters.AddWithValue("@Alamat", alamat);
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.Parameters.AddWithValue("@JumlahAnggota", jumlah);
+
+            try
+            {
+                conn.Open();
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                    Console.WriteLine("Data berhasil diperbarui!");
+                else
+                    Console.WriteLine("Gagal memperbarui data.");
             }
             catch (Exception ex)
             {
