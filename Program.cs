@@ -60,7 +60,7 @@ class Program
         string adminkomun = Console.ReadLine();
         Console.Write("Masukkan deskripsi Komunitas: ");
         string deskripsi = Console.ReadLine();
-        Console.Write("Masukkan No Telepon (+62xxxxx): ");
+        Console.Write("Masukkan No Telepon (08xxxxx): ");
         string telepon = Console.ReadLine();
         Console.Write("Masukkan Kategori: ");
         string kategori = Console.ReadLine();
