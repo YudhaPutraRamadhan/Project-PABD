@@ -183,24 +183,6 @@ class Program
             string checkQuery = "SELECT * FROM Komunitas WHERE IdKomunitas = @id";
             SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
             checkCmd.Parameters.AddWithValue("@id", idkomun);
-
-            try
-            {
-                conn.Open();
-                int count = (int)checkCmd.ExecuteScalar();
-                dataFound = (count > 0);
-
-                if (!dataFound)
-                {
-                    Console.WriteLine("Data dengan ID tersebut tidak ditemukan.");
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error saat memeriksa data: " + ex.Message);
-                return;
-            }
         }
 
         Console.Write("Masukkan Nama Komunitas baru: ");
